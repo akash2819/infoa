@@ -5,7 +5,7 @@
 
 `$ pkg install -y git`
 
-`$ git clone https://github.com/th3unkn0n/osi.ig.git && cd osi.ig`
+`$ git clone https://github.com/Akash6969/infoa.git && cd osi.ig`
 
 `$ python3 -m pip install -r requirements.txt`
 
