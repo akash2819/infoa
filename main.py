@@ -1,9 +1,9 @@
 #!/bin/env python3
-#codeo by akash6969
 import os, sys
 sys.path.append(os.getcwd()+"/.lib/")
 import argparse
-from api import *
+from lib import api_data as api
+
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-u", "--user", required=True, help="username of account to scan")
@@ -13,7 +13,7 @@ args = vars(ap.parse_args())
 os.system("clear")
 
 if args['user']:
-	user_info(usrname=args["user"])
+	api.user_info(usrname=args["user"])
 
 if args['post']:
-	post_info()
+	api.post_info()
