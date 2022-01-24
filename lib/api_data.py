@@ -4,7 +4,7 @@ import requests
 import random
 import json
 import sys
-from local import *
+import local 
 
 resp_js = None
 is_private = False
@@ -21,7 +21,7 @@ def proxy_session():
 def get_page(usrname):
 	global resp_js
 	session = requests.session()
-	session.headers = {'User-Agent': random.choice(useragent)}
+	session.headers = {'User-Agent': random.choice(local.useragent)}
 	resp_js = session.get('https://www.instagram.com/'+usrname+'/?__a=1').text
 	return resp_js
 
@@ -29,13 +29,13 @@ def exinfo():
 
 	def xprint(xdict, text):
 		if xdict != {}:
-			print(f"{su} {re}most used %s :" % text)
+			print(f"{local.su} {local.re}most used %s :" % text)
 			i = 0
 			for key, val in xdict.items():
 				if len(mail) == 1:
 					if key in mail[0]:
 						continue
-				print(f"  {gr}%s : {wh}%s" % (key, val))
+				print(f"  {local.gr}%s : {local.wh}%s" % (key, val))
 				i += 1
 				if i > 4:
 					break
@@ -43,18 +43,18 @@ def exinfo():
 		else:
 			pass
 	
-	raw = find(resp_js)
+	raw = local.find(resp_js)
 
 	mail = raw['email']
-	tags = sort_list(raw['tags'])
-	ment = sort_list(raw['mention'])
+	tags = local.sort_list(raw['tags'])
+	ment = local.sort_list(raw['mention'])
 
 	if mail != []:
 		if len(mail) == 1:
-			print(f"{su} {re}email found : \n{gr}  %s" % mail[0])
+			print(f"{local.su} {local.re}email found : \n{local.gr}  %s" % mail[0])
 			print()
 		else:
-			print(f"{su} {re}email found : \n{gr}  ")
+			print(f"{local.su} {local.re}email found : \n{local.gr}  ")
 			for x in range(len(mail)):
 				print(mail[x])
 			print()
@@ -91,7 +91,7 @@ def user_info(usrname):
 		'external url': js['external_url'],
 		'private': js['is_private'],
 		'verified': js['is_verified'],
-		'profile img': urlshortner(js['profile_pic_url_hd']),
+		'profile img': local.urlshortner(js['profile_pic_url_hd']),
 		'business account': js['is_business_account'],
 		#'connected to fb': js['connected_fb_page'],  -- requires login
 		'joined recently': js['is_joined_recently'],
@@ -100,11 +100,11 @@ def user_info(usrname):
 		'has guides': js['has_guides'],
 	}
 
-	banner()
+	local.banner()
 
-	print(f"{su}{re} user info")
+	print(f"{local.su}{local.re} user info")
 	for key, val in usrinfo.items():
-		print(f"  {gr}%s : {wh}%s" % (key, val))
+		print(f"  {local.gr}%s : {local.wh}%s" % (key, val))
 
 	print("")
 
@@ -197,7 +197,7 @@ def highlight_post_info(i):
 def post_info():
 	
 	if is_private != False:
-		print(f"{fa} {gr}cannot use -p for private accounts !\n")
+		print(f"{local.fa} {local.gr}cannot use -p for private accounts !\n")
 		sys.exit(1)
 	
 	posts = []
@@ -207,19 +207,19 @@ def post_info():
 
 	for x in range(len(posts)):
 		# get 1 item from post list
-		print(f"{su}{re} post %s :" % x)
+		print(f"{local.su}{local.re} post %s :" % x)
 		for key, val in posts[x].items():
 			if key == 'imgs':
 				# how many child imgs post has
 				postlen = len(val)
 				# loop over all child img
-				print(f"{su}{re} contains %s media" % postlen) 
+				print(f"{local.su}{local.re} contains %s media" % postlen) 
 				for y in range(postlen):
 					# print k,v of all child img in loop
 					for xkey, xval in val[y].items():
-						print(f"  {gr}%s : {wh}%s" % (xkey, xval))
+						print(f"  {local.gr}%s : {local.wh}%s" % (xkey, xval))
 			if key == 'info':
-				print(f"{su}{re} info :")
+				print(f"{local.su}{local.re} info :")
 				for key, val in val.items():
-					print(f"  {gr}%s : {wh}%s" % (key, val))
+					print(f"  {local.gr}%s : {local.wh}%s" % (key, val))
 				print("")	
